@@ -8,6 +8,7 @@ const imageminPngquant = require(`imagemin-pngquant`)
 const imageminWebp = require(`imagemin-webp`)
 const _ = require(`lodash`)
 const crypto = require(`crypto`)
+const axios = require(`axios`)
 
 // Try to enable the use of SIMD instructions. Seems to provide a smallish
 // speedup on resizing heavy loads (~10%). Sharp disables this feature by
@@ -75,6 +76,14 @@ const argsWhitelist = [
 exports.processFile = (file, transforms, options = {}) => {
   let pipeline
   try {
+    if (process.env.CLOUD_SERVICE_URL) {
+      return axios.post(process.env.CLOUD_SERVICE_URL, {
+        file,
+        transforms,
+        options,
+      })
+    }
+
     pipeline = sharp(file)
 
     // Keep Metadata
