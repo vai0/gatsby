@@ -77,10 +77,22 @@ exports.processFile = (file, transforms, options = {}) => {
   let pipeline
   try {
     if (process.env.CLOUD_SERVICE_URL) {
-      return axios.post(process.env.CLOUD_SERVICE_URL, {
-        file,
-        transforms,
-        options,
+      let cloudPromise
+
+      return transforms.map(transform => {
+        if (!cloudPromise) {
+          cloudPromise = axios
+            .post(process.env.CLOUD_SERVICE_URL, {
+              file,
+              transforms,
+              options,
+            })
+            .then(() => transform)
+
+          return cloudPromise
+        }
+
+        return Promise.resolve(transform)
       })
     }
 
