@@ -1,3 +1,7 @@
+# Forked changes
+
+- Remove the removal of MiniCSSExtractPlugin
+
 # gatsby-plugin-netlify-cms
 
 **Gatsby v1 and Netlify CMS 1.x require [`gatsby-plugin-netlify-cms@^2.0.0`][1].**

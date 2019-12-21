@@ -151,7 +151,7 @@ exports.onCreateWebpackConfig = (
       // application, or that we want to replace with our own instance.
       ...gatsbyConfig.plugins.filter(
         plugin =>
-          ![`MiniCssExtractPlugin`, `GatsbyWebpackStatsExtractor`].find(
+          ![`GatsbyWebpackStatsExtractor`].find(
             pluginName =>
               plugin.constructor && plugin.constructor.name === pluginName
           )
